@@ -1,6 +1,8 @@
-from app import db
+# from app import db
 from sqlalchemy.dialects.postgresql import JSON
+from flask.ext.sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 
 class Company(db.Model):
     __tablename__ = 'companies'

@@ -1,25 +1,20 @@
-from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask import Flask, render_template
 import os
+from models import db
 
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db.init_app(app)
 
-from models import Company
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
 
-
-@app.route('/')
-def hello():
-    return "Hello World!"
-
-
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
-
+@app.route('/maps')
+def maps():
+	return render_template('maps.html')
 
 if __name__ == '__main__':
     app.run()
